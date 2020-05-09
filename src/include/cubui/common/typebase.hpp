@@ -9,7 +9,7 @@ auto get_type_prnt_ids(TypeID id){
 }
 
 struct TypeBase{
-    virtual TypeID type_id() = 0;
+    virtual TypeID type_id() {return 0;}
     auto type_prnt_ids(){
         return get_type_prnt_ids(type_id());
     }

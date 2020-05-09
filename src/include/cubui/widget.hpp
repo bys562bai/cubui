@@ -10,6 +10,7 @@ struct Message;
 struct Scene;
 struct SceneNode;
 struct Renderer;
+struct RenderOutput;
 
 struct MsgHandler : TypeBase{
     virtual ~MsgHandler(){}
@@ -20,14 +21,28 @@ struct MsgHandler : TypeBase{
 
 
 struct SceneNode : MsgHandler{
-
+    //不带引用计数, unique
+    virtual Scene* prnt() = 0;
+    virtual void destroy() = 0;
 };
 
+struct SceneNodeIterator;
+
 struct Scene : MsgHandler{
-    struct Pos; //TODO
-    //自带引用计数
-    virtual void destroy(SceneNode* node) = 0;
-    virtual void move(SceneNode* node, Pos& pos) = 0;
+    //自带引用计数, shared
+    virtual void init(Renderer& renderer);
+    // virtual void init(Renderer& renderer, bool multi_renderer = false) = 0;
+    virtual void reinit(Renderer& renderer) = 0;
+    // virtual void reinit(Renderer& renderer, bool multi_renderer = false) = 0;
+    virtual void inited() = 0;
+    virtual void uninit() = 0;
+    virtual Renderer& get_renderer() = 0;
+
+    virtual void draw(Renderer& renderer) = 0;
+    // virtual void draw(Renderer& renderer, RenderOutput& out) = 0;
+    virtual bool has_son() = 0;
+    virtual SceneNodeIterator get_son_it_begin() = 0;
+    virtual SceneNodeIterator get_son_it_end() = 0;
 };
 
 //desc, info, config
