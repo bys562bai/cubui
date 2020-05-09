@@ -7,3 +7,5 @@ tmp/*
 *.tmp.hpp
 *.tmp.cxx
 *.tmp.c
+
+build/*
