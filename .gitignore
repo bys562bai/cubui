@@ -1,2 +1,9 @@
 tmp/*
 *.tmp
+*.tmp.txt
+*.tmp.py
+*.tmp.ipynb
+*.tmp.cpp
+*.tmp.hpp
+*.tmp.cxx
+*.tmp.c
