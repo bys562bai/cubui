@@ -1,8 +1,7 @@
 #pragma once
 #include <cubui/common/typedef.hpp>
-#include <cubui/common/typebuild.hpp>
+#include <cubui/template/typebuild.hpp>
 #include <cubui/common/typebase.hpp>
-#include <cubui/common/smartptr.hpp>
 
 namespace cubui{
 
@@ -14,7 +13,7 @@ struct RenderOutput;
 
 struct MsgHandler : TypeBase{
     virtual ~MsgHandler(){}
-    virtual bool if_support_msg(MsgID id){return false;}
+    virtual bool support_msg(MsgID id){return false;}
     protected:
     virtual void when(MsgHandler* prnt, MsgHandler* sender, Message* msg){}
 };
@@ -30,35 +29,42 @@ struct SceneNodeIterator;
 
 struct Scene : MsgHandler{
     //自带引用计数, shared
-    virtual void init(Renderer& renderer);
+    virtual Result init(Renderer& renderer);
     // virtual void init(Renderer& renderer, bool multi_renderer = false) = 0;
-    virtual void reinit(Renderer& renderer) = 0;
+    virtual Result reinit(Renderer& renderer) = 0;
     // virtual void reinit(Renderer& renderer, bool multi_renderer = false) = 0;
-    virtual void inited() = 0;
+    virtual bool inited() = 0;
     virtual void uninit() = 0;
     virtual Renderer& get_renderer() = 0;
 
     virtual void draw(Renderer& renderer) = 0;
     // virtual void draw(Renderer& renderer, RenderOutput& out) = 0;
     virtual bool has_son() = 0;
-    virtual SceneNodeIterator get_son_it_begin() = 0;
-    virtual SceneNodeIterator get_son_it_end() = 0;
+    virtual SceneNodeIterator sons_begin() = 0;
+    virtual SceneNodeIterator sons_end() = 0;
 };
 
 //desc, info, config
-struct Object2DInfo{
+struct Scene2DNodeInfo{
     //边界位置，高度
     //输入边界是否为0，是否无界
     //输出边界是否为0，是否无界
 };
 
-struct Object2D : SceneNode{
-    virtual void getObject2DInfo(Object2DInfo& info) = 0;
+struct Scene2DNode : SceneNode{
+    virtual void getObject2DInfo(Scene2DNodeInfo& info) = 0;
 };
 
 struct Scene2D : Scene{
 
 };
 
+struct Scene3DNode : SceneNode{
+
+};
+
+struct Scene3D : Scene{
+
+};
 
 }
