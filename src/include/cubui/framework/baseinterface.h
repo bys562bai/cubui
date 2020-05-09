@@ -6,19 +6,22 @@
 namespace cubui{
 
 struct Message;
-struct IScene;
-struct ISceneNode;
+struct SceneBase;
 struct Renderer;
 struct RenderOutput;
 
-struct IMsgHandler : BaseType{
-    virtual ~IMsgHandler(){}
-    virtual bool support_msg(MsgID id){return false;}
-    protected:
-    virtual void when(Message* msg, IMsgHandler* prnt, IMsgHandler* sender){}
+struct Renderer{
+
 };
 
-struct IScene : IMsgHandler{
+struct MsgHandler : BaseType{
+    virtual ~MsgHandler(){}
+    virtual bool support_msg(MsgID id){return false;}
+    protected:
+    virtual void when(Message* msg, MsgHandler* prnt, MsgHandler* sender){}
+};
+
+struct SceneBase : MsgHandler{
     //应当以shared_ptr方式保存
     virtual Result init(Renderer& renderer) = 0;
     // virtual void init(Renderer& renderer, bool multi_renderer = false) = 0;
@@ -27,7 +30,7 @@ struct IScene : IMsgHandler{
     virtual bool inited() = 0;
     virtual void uninit() = 0;
     virtual Renderer& get_renderer() = 0;
-
+    virtual void update() = 0;
     virtual void draw(RenderOutput& out) = 0;
     // virtual void draw(Renderer& renderer, RenderOutput& out) = 0;
 };
@@ -39,17 +42,15 @@ struct Object2DInfo{
     //输出边界是否为0，是否无界
 };
 
-struct IObject2D {
+struct Object2DBase {
     virtual void getObject2DInfo(Object2DInfo& info) = 0;
 };
 
-
-
-struct IScene2D : IScene{
+struct Scene2D : SceneBase{
 
 };
 
-struct IScene3D : IScene{
+struct Scene3D : SceneBase{
 
 };
 
