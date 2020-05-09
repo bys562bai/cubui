@@ -1,5 +1,5 @@
 #pragma once
-#include "typedef.hpp"
+#include "typedef.h"
 
 namespace cubui{
 
@@ -8,7 +8,7 @@ auto get_type_prnt_ids(TypeID id){
     //TODO
 }
 
-struct TypeBase{
+struct BaseType{
     virtual TypeID type_id() {return 0;}
     auto type_prnt_ids(){
         return get_type_prnt_ids(type_id());

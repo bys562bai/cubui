@@ -1,5 +1,5 @@
 #pragma once
-#include <cubui/common/typedef.hpp>
+#include <cubui/common/typedef.h>
 
 namespace cubui{
 

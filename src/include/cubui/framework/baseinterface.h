@@ -1,7 +1,7 @@
 #pragma once
-#include <cubui/common/typedef.hpp>
+#include <cubui/common/typedef.h>
 #include <cubui/template/typebuild.hpp>
-#include <cubui/common/typebase.hpp>
+#include <cubui/common/basetype.h>
 
 namespace cubui{
 
@@ -11,7 +11,7 @@ struct ISceneNode;
 struct Renderer;
 struct RenderOutput;
 
-struct IMsgHandler : TypeBase{
+struct IMsgHandler : BaseType{
     virtual ~IMsgHandler(){}
     virtual bool support_msg(MsgID id){return false;}
     protected:
