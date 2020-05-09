@@ -21,4 +21,6 @@ git remote rm origin
 
 git push -u origin master
 
+git add .
 
+git commit -m 'update .gitignore'
