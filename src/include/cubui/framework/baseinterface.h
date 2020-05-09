@@ -1,6 +1,6 @@
 #pragma once
 #include <cubui/common/typedef.h>
-#include <cubui/template/typebuild.hpp>
+#include <cubui/template/typebuild.h>
 #include <cubui/common/basetype.h>
 
 namespace cubui{
