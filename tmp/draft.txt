@@ -1,0 +1,24 @@
+git config --global user.name "bys562bai@gmail.com"
+git config --global user.email "bys562bai@gmail.com"
+
+
+ssh-keygen -t rsa -C "bys562bai@gmail.com"
+ssh -T git@github.com
+
+ssh: git remote set-url origin git@github.com:bys562bai/cubui.git
+
+git remote
+
+
+git remote -v
+
+git remote add origin git@github.com:bys562bai/cubui.git
+git commit -m 0
+
+git remote add origin https://github.com/bys562bai/cubui.git
+
+git remote rm origin
+
+git push -u origin master
+
+
