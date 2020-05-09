@@ -6,30 +6,30 @@
 namespace cubui{
 
 struct Message;
-struct Scene;
-struct SceneNode;
+struct IScene;
+struct ISceneNode;
 struct Renderer;
 struct RenderOutput;
 
-struct MsgHandler : TypeBase{
-    virtual ~MsgHandler(){}
+struct IMsgHandler : TypeBase{
+    virtual ~IMsgHandler(){}
     virtual bool support_msg(MsgID id){return false;}
     protected:
-    virtual void when(MsgHandler* prnt, MsgHandler* sender, Message* msg){}
+    virtual void when(IMsgHandler* prnt, IMsgHandler* sender, Message* msg){}
 };
 
 
-struct SceneNode : MsgHandler{
+struct ISceneNode : IMsgHandler{
     //不带引用计数, unique
-    virtual Scene* prnt() = 0;
+    virtual IScene* prnt() = 0;
     virtual void destroy() = 0;
 };
 
 struct SceneNodeIterator;
 
-struct Scene : MsgHandler{
+struct IScene : IMsgHandler{
     //自带引用计数, shared
-    virtual Result init(Renderer& renderer);
+    virtual Result init(Renderer& renderer) = 0;
     // virtual void init(Renderer& renderer, bool multi_renderer = false) = 0;
     virtual Result reinit(Renderer& renderer) = 0;
     // virtual void reinit(Renderer& renderer, bool multi_renderer = false) = 0;
@@ -51,19 +51,19 @@ struct Scene2DNodeInfo{
     //输出边界是否为0，是否无界
 };
 
-struct Scene2DNode : SceneNode{
+struct IScene2DNode : ISceneNode{
     virtual void getObject2DInfo(Scene2DNodeInfo& info) = 0;
 };
 
-struct Scene2D : Scene{
+struct IScene2D : IScene{
 
 };
 
-struct Scene3DNode : SceneNode{
+struct IScene3DNode : ISceneNode{
 
 };
 
-struct Scene3D : Scene{
+struct IScene3D : IScene{
 
 };
 
