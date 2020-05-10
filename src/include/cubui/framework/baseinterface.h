@@ -14,11 +14,16 @@ struct Renderer{
 
 };
 
+struct RenderOutput{
+
+};
+
+
 struct MsgHandler : BaseType{
     virtual ~MsgHandler(){}
     virtual bool support_msg(MsgID id){return false;}
     protected:
-    virtual void when(Message* msg, MsgHandler* prnt, MsgHandler* sender){}
+    virtual void handle(Message* msg){}
 };
 
 struct SceneBase : MsgHandler{
@@ -43,15 +48,7 @@ struct Object2DInfo{
 };
 
 struct Object2DBase {
-    virtual void getObject2DInfo(Object2DInfo& info) = 0;
-};
-
-struct Scene2D : SceneBase{
-
-};
-
-struct Scene3D : SceneBase{
-
+    virtual void get_obj2d_info(Object2DInfo& info) = 0;
 };
 
 }

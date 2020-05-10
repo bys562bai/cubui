@@ -3,8 +3,12 @@
 
 namespace cubui{
 
+struct MsgHandler;
+
 struct Message{
-    MsgID id;
+    MsgID id = 0;
+    MsgHandler* prnt = nullptr;
+    MsgHandler* sender = nullptr;
 };
 
 }
