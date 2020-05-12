@@ -1,4 +1,3 @@
-#define UNICODE
 #include <cstdint>
 #include <Windows.h>
 #include "windowbase.h"
@@ -60,7 +59,7 @@ namespace os_windows
 		}
 	}
 
-	bool WindowBase::s_init()
+	Result WindowBase::s_init()
 	{
 		auto& wc = s_wc;
 		if (RegisterClassW(&wc)) {

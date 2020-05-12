@@ -10,4 +10,4 @@ tmp/*
 
 .vscode/*
 build/*
-demo/*
+/demo/*

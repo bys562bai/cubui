@@ -36,7 +36,7 @@ struct SceneBase : MsgHandler{
     virtual void uninit() = 0;
     virtual Renderer& get_renderer() = 0;
     virtual void update() = 0;
-    virtual void draw(RenderOutput& out) = 0;
+    virtual void draw() = 0;
     // virtual void draw(Renderer& renderer, RenderOutput& out) = 0;
 };
 

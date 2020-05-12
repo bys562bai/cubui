@@ -1,8 +1,8 @@
 #pragma once
-#define UNICODE
+
 #include <cstdint>
 #include <Windows.h>
-#include "globalvar.h"
+#include "../common/common.h"
 
 namespace os_windows
 {
@@ -27,7 +27,7 @@ namespace os_windows
 			return s_wnd_count;
 		}
 
-		static bool s_init();//should call this!!!
+		static Result s_init();//should call this!!!
 	private:
 		HWND m_hwnd = nullptr;
 
