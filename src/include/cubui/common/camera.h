@@ -2,7 +2,12 @@
 
 namespace cubui
 {
-    struct Scene2D{
+    struct Camera2d{
 
     };
+    
+    struct Camera3d{
+
+    };
+
 } // namespace cubui
