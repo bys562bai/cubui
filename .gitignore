@@ -1,4 +1,5 @@
 tmp/*
+draft*
 *.tmp
 *.tmp.txt
 *.tmp.py
