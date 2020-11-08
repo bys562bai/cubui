@@ -8,8 +8,13 @@
 
 namespace cubui
 {
+    struct SceneNode{
+        virtual SceneNode& next();
+    };
+
     struct Scene{
-        virtual void setRenderer(sp<Renderer>);
+        virtual SceneNode& getRoot();
+        virtual void setRenderer(SPtr<Renderer>);
         virtual void update(double time) {};
         virtual void update(int frame_num) {};
         virtual void setOutput(Surface*);

@@ -10,5 +10,5 @@ draft*
 *.tmp.c
 
 .vscode/*
-build/*
+**/build/*
 /demo/*
