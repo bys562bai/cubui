@@ -1,10 +1,10 @@
 #include <SDL2/SDL.h>
 
-#include <cubui/core/global.h>
+#include <cubui/core/initnode.h>
 
 namespace cubui{
-    struct SDLInitNode{
-        virtual Result init(Initializer* initzer){
+    struct SDLInitNode : InitNode{
+        virtual Result init(initzer){
             auto re = SDL_Init( SDL_INIT_VIDEO );
             if(re<0)
                 return re;
@@ -15,8 +15,4 @@ namespace cubui{
             return SDL_GetError();
         }
     };
-
-    namespace _inner_local_jdosdos{
-        SDLInitNode g_sdlinitnode;
-    }
 }
