@@ -1,5 +1,5 @@
 #pragma once
-#include <cubui/core/scene.h>
+#include <cubui/graphic/scene.h>
 #include <cubui/container/list.h>
 
 namespace cubui

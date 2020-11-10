@@ -1,11 +1,10 @@
 #pragma once
 #include <glog/logging.h>
-#include <cubui/core/initnode.h>
-#include <cubui/core/global.h>
-
+#include <cubui/common/global.h>
+#include <cubui/util/confignode.h>
 
 namespace cubui{
-    struct LOGInitNode:InitNode{
+    struct LOGConfig:ConfigNode{
         virtual Result init(){
             using namespace global_val;
             gflags::SetCommandLineOption("stderrthreshold", "0");

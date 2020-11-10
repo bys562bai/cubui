@@ -1,4 +1,3 @@
 #pragma once
 #define CUBUI_PLATFORM_WINDOWS
-#define CUBUI_USING_SDL2 
 #define CUBUI_USING_VULKAN
