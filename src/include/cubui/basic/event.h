@@ -7,6 +7,7 @@
 
 #include <cubui/container/list.h>
 
+
 #ifdef ERROR
 #undef ERROR
 #endif
@@ -27,10 +28,7 @@ namespace cubui
 
 #ifdef CUBUI_PLATFORM_WINDOWS
 
-struct RawEvent{
-    //TODO
-};
-
+    using RawEvent = MSG;
 #endif
 
     using EventID = uint32_t;
@@ -42,13 +40,11 @@ struct RawEvent{
 
     struct EventLoop
     {
-        void run();
+        int run();
+        void dispatch(Event* e);
         void quit(){m_quit = true;}
         void enableIdle(bool x = true) { m_enableIdle = x; }
-        virtual void when(Event* e) {
-            if (e->id == eventid::QUIT)
-                return;
-        }
+        virtual void when(Event* e);
 
     private:
         bool m_enableIdle = false;

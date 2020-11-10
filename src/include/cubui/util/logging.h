@@ -4,12 +4,18 @@
 #include <cubui/util/confignode.h>
 
 namespace cubui{
-    struct LOGConfig:ConfigNode{
+    struct LoggingConfig:ConfigNode{
+        virtual const char* getName() const {
+            static auto name = "Logging";
+            return name;
+        }
+
         virtual Result init(){
             using namespace global_val;
-            gflags::SetCommandLineOption("stderrthreshold", "0");
+            FLAGS_stderrthreshold = 0;
+          
             google::InitGoogleLogging(g_argv[0]);
-            gflags::ParseCommandLineFlags(&g_argc, &g_argv, true);
+            //gflags::ParseCommandLineFlags(&g_argc, &g_argv, true);
             return 0;
         }
     };

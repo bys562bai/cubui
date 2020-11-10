@@ -1,16 +1,34 @@
 #include <iostream>
-#include <cubui/config/config.h>
-#include <cubui/core/global.h>
+#include <cubui/cubui.h>
 #include <cubui/util/logging.h>
-#include <cubui/core/window.h>
-#include <cubui/core/event.h>
 
-int main(int argc, char* argv[]){
+CUBUI_MAIN_HEADER{
     using namespace cubui;
+
+//test init
     CubuiConfig config;
-    auto n = config.init(argc, argv);
+    auto n = config.init(hInstance, pCmdLine, nCmdShow);
 
-    LOG(INFO)<<"hello";
 
-    return 0;
+    if (n) {
+        LOG(FATAL) << "FAIL: " << n->getName();
+    }
+    {
+        using namespace global_val;
+        for (int i = 0; i < g_argc; i++) {
+            LOG(INFO) << g_argv[i];
+        }
+    }
+
+    LOG(INFO)<<"success";
+//test init end
+
+    auto wnd = new Window();
+    wnd->init();
+    //wnd->show();
+    //wnd->uninit();
+
+    EventLoop loop;
+
+    return loop.run();
 }
