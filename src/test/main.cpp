@@ -11,16 +11,17 @@ CUBUI_MAIN_HEADER{
 
 
     if (n) {
-        LOG(FATAL) << "FAIL: " << n->getName();
+        LOG_FATAL("FAIL: ", n->getName());
+        exit(-1);
     }
     {
         using namespace global_val;
         for (int i = 0; i < g_argc; i++) {
-            LOG(INFO) << g_argv[i];
+            LOG_INFO(g_argv[i]);
         }
     }
 
-    LOG(INFO)<<"success";
+    LOG_INFO("success");
 //test init end
 
     auto wnd = new Window();

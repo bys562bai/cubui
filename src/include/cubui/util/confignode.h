@@ -18,7 +18,7 @@ namespace cubui{
         virtual Result init() {return 0;}   
         virtual ~ConfigNode(){}
 
-        void set_inited(bool x = true) { m_inited = x; }
+        void setInited(bool x = true) { m_inited = x; }
         private:
         bool m_inited = false;
     };

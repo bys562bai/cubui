@@ -1,6 +1,8 @@
 #pragma once
 #include "predef.h"
 
+#include <cubui/util/confignode.h>
+
 #ifdef CUBUI_PLATFORM_WINDOWS
 #include <cubui/impl/windows/common/config.h>
 #endif
@@ -8,9 +10,8 @@
 #ifdef CUBUI_USING_VULKAN
 #include <cubui/impl/vulkan/config.h>
 #endif
+#include <cubui/util/loggingconfig.h>
 
-#include <cubui/util/confignode.h>
-#include <cubui/util/logging.h>
 
 #include <cubui/common/usefultype.h>
 #include <cubui/common/global.h>
@@ -33,7 +34,7 @@ namespace cubui
 				for (int i = 0; i < g_argc; i++) {
 					LPWSTR argw = argvw[i];
 					auto argwl = wcslen(argw);
-					auto argl = (argwl+1) * 4;
+					auto argl = (argwl+1) * 6;
 
 					char* arg = new char[argl];
 					auto argl_real = WideCharToMultiByte(
@@ -48,7 +49,7 @@ namespace cubui
 					);
 
 					
-					for (int i = argl_real; i < argl_real+4; i++) {
+					for (int i = argl_real; i < argl_real+6; i++) {
 						arg[i] = '\0';
 					}
 
@@ -73,7 +74,7 @@ namespace cubui
 				&vulkanConfig,
 #endif
 			};
-
+			//init loop
 			for (int i = 0; i < sizeof(arr) / sizeof(ConfigNode*); i++) {
 				auto n = arr[i];
 				if (n->inited())
@@ -82,8 +83,10 @@ namespace cubui
 					if (n->whenFail(re))
 						return n;
 				}
-				n->set_inited();
+				n->setInited();
 			}
+
+			setInited();
 			return nullptr;
 		}
 		virtual ~CubuiConfig(){

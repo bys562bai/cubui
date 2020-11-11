@@ -1,22 +1,9 @@
+//As this file contains macro, so this file should not be included in any public headers.
 #pragma once
-#include <glog/logging.h>
-#include <cubui/common/global.h>
-#include <cubui/util/confignode.h>
+#include "loggingconfig.h"
 
-namespace cubui{
-    struct LoggingConfig:ConfigNode{
-        virtual const char* getName() const {
-            static auto name = "Logging";
-            return name;
-        }
-
-        virtual Result init(){
-            using namespace global_val;
-            FLAGS_stderrthreshold = 0;
-          
-            google::InitGoogleLogging(g_argv[0]);
-            //gflags::ParseCommandLineFlags(&g_argc, &g_argv, true);
-            return 0;
-        }
-    };
-}
+#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(cubui::global_val::g_logger, __VA_ARGS__)
+#define LOG_INFO(...) SPDLOG_LOGGER_INFO(cubui::global_val::g_logger, __VA_ARGS__)
+#define LOG_WARN(...) SPDLOG_LOGGER_WARN(cubui::global_val::g_logger, __VA_ARGS__)
+#define LOG_ERR(...) SPDLOG_LOGGER_ERROR(cubui::global_val::g_logger, __VA_ARGS__)
+#define LOG_FATAL(...) SPDLOG_LOGGER_CRITICAL(cubui::global_val::g_logger, __VA_ARGS__)

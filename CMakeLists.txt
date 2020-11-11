@@ -9,13 +9,12 @@ endif()
 
 
 
-find_package(GLOG REQUIRED)
+find_package(spdlog REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Fmt REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(glfw3 REQUIRED)
 
-find_path(GLOG_INCLUDE_DIRS "glog/logging.h")
 find_path(FMT_INCLUDE_DIRS "fmt/format.h")
 
 
@@ -26,7 +25,6 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/out/lib)
 set(CUBUI_DEPENDENT_INC 
 ${CMAKE_SOURCE_DIR}/src/include
 ${GLFW3_INCLUDE_DIRS}
-${GLOG_INCLUDE_DIRS}
 ${FMT_INCLUDE_DIRS}
 ${Boost_INCLUDE_DIRS}
 )
@@ -35,7 +33,7 @@ ${Boost_INCLUDE_DIRS}
 
 set(CUBUI_DEPENDENT_LIB
 Boost::boost 
-glog::glog 
+spdlog::spdlog
 Vulkan::Vulkan
 glfw
 )
