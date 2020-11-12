@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #ifdef CUBUI_PLATFORM_WINDOWS
-#include <Windows.h>
+#include <cubui/ext/windowsinc.h>
 #endif
 
 #include <cubui/common/usefultype.h>

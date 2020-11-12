@@ -2,7 +2,7 @@
 #include <cubui/common/predef.h>
 
 #ifdef CUBUI_PLATFORM_WINDOWS
-#include <Windows.h>
+#include <cubui/ext/windowsinc.h>
 #endif // CUBUI_PLATFORM_WINDOWS
 
 

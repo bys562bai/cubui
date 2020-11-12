@@ -3,6 +3,6 @@
 namespace cubui
 {
 	namespace global_val{
-		extern VkInstance g_vkInstance = VK_NULL_HANDLE;
+		extern VkInstance g_vkInstance;
 	}
 } // namespace cubui

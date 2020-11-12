@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+#include <cubui/ext/windowsinc.h>
 #include <cubui/common/global.h>
 
 namespace cubui{

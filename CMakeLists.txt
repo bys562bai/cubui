@@ -8,17 +8,18 @@ if(WIN32)
 endif()
 
 
-
+find_package(gflags REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Fmt REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(glfw3 REQUIRED)
+find_package(folly REQUIRED)
 
 find_path(FMT_INCLUDE_DIRS "fmt/format.h")
 
 
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/out/lib)
+# set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/out/lib)
 
 
 
@@ -33,6 +34,7 @@ ${Boost_INCLUDE_DIRS}
 
 set(CUBUI_DEPENDENT_LIB
 Boost::boost 
+Folly::folly
 spdlog::spdlog
 Vulkan::Vulkan
 glfw
@@ -40,9 +42,10 @@ glfw
 
 
 set(CUBUI_CMAKE_MODULE_PATH  ${CMAKE_SOURCE_DIR}/build-util/cmake-module)
-
-
 execute_process(COMMAND python ${CMAKE_SOURCE_DIR}/build-util/code_maker.py)
+
 include(${CUBUI_CMAKE_MODULE_PATH}/cubui_var.cmake)
+include(${CUBUI_CMAKE_MODULE_PATH}/cubui_util.cmake)
+
 
 add_subdirectory(src)

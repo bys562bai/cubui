@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cubui/cubui.h>
 #include <cubui/util/logging_m.h>
 
