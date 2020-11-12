@@ -1,6 +1,6 @@
 #pragma once
 #include <Windows.h>
-#include <cubui/util/confignode.h>
+#include <cubui/config/confignode.h>
 #include <cubui/basic/window.h>
 
 namespace cubui{

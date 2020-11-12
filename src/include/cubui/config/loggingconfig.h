@@ -1,28 +1,8 @@
 #pragma once
-#include <memory>
-#include <string>
-#include <filesystem>
-
-#include <cubui/common/predef.h>
-
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO
-#include <spdlog/spdlog.h>
-
-#ifdef CUBUI_USING_MSVC
-#include <spdlog/sinks/msvc_sink.h>
-#endif
-
-#include <spdlog/sinks/stdout_sinks.h>
-#include <spdlog/sinks/rotating_file_sink.h>
-
-#include <cubui/util/confignode.h>
+#include <cubui/util/logging.h>
+#include "confignode.h"
 
 namespace cubui{
-    namespace global_val{
-        
-       extern std::shared_ptr<spdlog::logger> g_logger;
-    }
-
     struct LoggingConfig:ConfigNode{
         virtual const char* getName() const {
             static auto name = "Logging";

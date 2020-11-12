@@ -1,9 +1,22 @@
-//As this file contains macro, so this file should not be included in any public headers.
 #pragma once
-#include "loggingconfig.h"
+#include <cubui/common/predef.h>
 
-#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(cubui::global_val::g_logger, __VA_ARGS__)
-#define LOG_INFO(...) SPDLOG_LOGGER_INFO(cubui::global_val::g_logger, __VA_ARGS__)
-#define LOG_WARN(...) SPDLOG_LOGGER_WARN(cubui::global_val::g_logger, __VA_ARGS__)
-#define LOG_ERR(...) SPDLOG_LOGGER_ERROR(cubui::global_val::g_logger, __VA_ARGS__)
-#define LOG_FATAL(...) SPDLOG_LOGGER_CRITICAL(cubui::global_val::g_logger, __VA_ARGS__)
+#include <memory>
+#include <string>
+
+
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO
+#include <spdlog/spdlog.h>
+
+#ifdef CUBUI_USING_MSVC
+#include <spdlog/sinks/msvc_sink.h>
+#endif
+
+#include <spdlog/sinks/stdout_sinks.h>
+#include <spdlog/sinks/rotating_file_sink.h>
+
+namespace cubui{
+    namespace global_val{
+       extern std::shared_ptr<spdlog::logger> g_logger;
+    }
+}

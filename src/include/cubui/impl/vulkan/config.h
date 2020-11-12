@@ -1,13 +1,16 @@
 #pragma once
 #include <vector>
 
-#include "headeruse.h"
+#include "vulkanheader.h"
 
-#include <cubui/util/confignode.h>
+#include <cubui/config/confignode.h>
 #include <cubui/common/usefultype.h>
 
-
 namespace cubui{
+	namespace global_val{
+		extern VkInstance g_vkInstance;
+	}
+
 	struct VulkanConfig : ConfigNode {
 		virtual Result init();
 		virtual void uninit();
@@ -22,6 +25,8 @@ namespace cubui{
 	private:
 		virtual Result createInstance();
 		virtual Result setupDebugMessenger();
+		virtual Result pickPhysicalDevice();
+		virtual Result createLogicalDevice();
 
 		virtual bool checkValidationLayerSupport(); //success return 1
 		virtual std::vector<const char*> getRequiredExtensions();
@@ -35,11 +40,11 @@ namespace cubui{
 
 		void fillDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
 
-		Result pickPhysicalDevice();
-
 
 		static bool isDeviceSuitable(VkPhysicalDevice device);
 
+		//return -1 if not found
+		static int getQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlags flags);
 
 		static std::vector<VkQueueFamilyProperties> getQueueFamilies(VkPhysicalDevice device);
 
@@ -50,15 +55,13 @@ namespace cubui{
 			void* pUserData
 		);
 
-
-
-
 	private:
-		VkInstance m_vkInstance = VK_NULL_HANDLE;
-		VkDebugUtilsMessengerEXT m_debugMessenger = VK_NULL_HANDLE;
 		VkPhysicalDevice m_physDevice = VK_NULL_HANDLE;
+		VkDebugUtilsMessengerEXT m_debugMessenger = VK_NULL_HANDLE;
+		VkDevice m_device = VK_NULL_HANDLE;
+		VkQueue m_graphicQueue = VK_NULL_HANDLE;
 		bool m_enableValidationLayers = true;
 
-		static const std::vector<const char*> sm_validationLayers;
+		static const std::vector<const char*> s_validationLayers;
 	};
 }

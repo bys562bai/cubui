@@ -1,20 +1,15 @@
 #pragma once
-#include "predef.h"
-
-#include <cubui/util/confignode.h>
-
+#include <cubui/common/predef.h>
 #ifdef CUBUI_PLATFORM_WINDOWS
-#include <cubui/impl/windows/common/config.h>
+#include <Windows.h>
 #endif
 
-#ifdef CUBUI_USING_VULKAN
-#include <cubui/impl/vulkan/config.h>
-#endif
-#include <cubui/util/loggingconfig.h>
-
+#include "loggingconfig.h"
+#include "windowconfig.h"
 
 #include <cubui/common/usefultype.h>
 #include <cubui/common/global.h>
+#include "confignode.h"
 
 namespace cubui
 {
@@ -67,12 +62,7 @@ namespace cubui
 #endif
 			ConfigNode* arr[] = {
 				&logConfig,
-#ifdef CUBUI_PLATFORM_WINDOWS
-				&windowsConfig,
-#endif
-#ifdef CUBUI_USING_VULKAN
-				&vulkanConfig,
-#endif
+				&windowConfig
 			};
 			//init loop
 			for (int i = 0; i < sizeof(arr) / sizeof(ConfigNode*); i++) {
@@ -89,7 +79,9 @@ namespace cubui
 			setInited();
 			return nullptr;
 		}
+
 		virtual ~CubuiConfig(){
+
 #ifdef CUBUI_PLATFORM_WINDOWS
 			using namespace global_val;
 			for (int i = 0; i < g_argc; i++) {
@@ -102,15 +94,7 @@ namespace cubui
 		}
 
 		LoggingConfig logConfig;
-
-
-#ifdef CUBUI_PLATFORM_WINDOWS
-		WindowsPlatformConfig windowsConfig;
-#endif
-
-#ifdef CUBUI_USING_VULKAN
-		VulkanConfig vulkanConfig;
-#endif
+		WindowConfig windowConfig;
 
 	};
 

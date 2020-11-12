@@ -1,13 +1,16 @@
 #pragma once
-#include <cubui/util/confignode.h>
+#include <cubui/common/predef.h>
+
+#ifdef CUBUI_USING_VULKAN
+#include <cubui/impl/vulkan/vulkanheader.h>
+#endif
 
 namespace cubui
 {
-
     struct Renderer
     {
-        
-    };
-    
-    
+
+    private:
+        VkDevice m_device = VK_NULL_HANDLE;
+    };  
 } // namespace cubui
