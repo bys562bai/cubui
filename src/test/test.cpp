@@ -23,7 +23,7 @@ CUBUI_MAIN_HEADER{
     LOG_INFO("success");
 //test init end
 
-    auto wnd = new Window();
+    auto wnd = new WindowBase();
     wnd->init();
     //wnd->show();
     //wnd->uninit();

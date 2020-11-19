@@ -1,5 +1,4 @@
 #pragma once
-#include <cubui/container/buffer.h>
 #include <cubui/util/smartptr.h>
 #include "camera.h"
 #include "renderer.h"

@@ -1,11 +1,11 @@
 #pragma once
 #include <cubui/common/predef.h>
+#include <cubui/common/usefultype.h>
+#include <cubui/util/signal.h>
 
 #ifdef CUBUI_PLATFORM_WINDOWS
 #include <cubui/ext/windowsinc.h>
 #endif
-
-#include <cubui/container/list.h>
 
 
 #ifdef ERROR
@@ -31,20 +31,18 @@ namespace cubui
     using RawEvent = MSG;
 #endif
 
-    using EventID = uint32_t;
 
-    struct Event{
-        EventID id;
+    struct CUEvent : CUSignal{
         RawEvent rawEvent;
     };
 
     struct EventLoop
     {
         int run();
-        void dispatch(Event* e);
+        void dispatch(CUEvent* e);
         void quit(){m_quit = true;}
         void enableIdle(bool x = true) { m_enableIdle = x; }
-        virtual void when(Event* e);
+        virtual void when(CUEvent* e);
 
     private:
         bool m_enableIdle = false;

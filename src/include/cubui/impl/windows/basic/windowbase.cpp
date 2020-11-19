@@ -1,5 +1,5 @@
 #include <cubui/common/global.h>
-#include <cubui/basic/window.h>
+#include <cubui/basic/windowbase.h>
 #include <cubui/basic/event.h>
 
 
@@ -8,11 +8,11 @@ namespace cubui{
 	using global_val::g_nCmdShow;
 	using global_val::g_pCmdLine;
 
-	uint32_t Window::s_wnd_count = 0;
-	const wchar_t Window::s_wcName[] = L"CubuiWindow";
-	const wchar_t Window::s_default_title[] = L"";
-	const int Window::s_defaultSizes[] = { CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT };
-	const WNDCLASSW Window::s_wc = {
+	uint32_t WindowBase::s_wnd_count = 0;
+	const wchar_t WindowBase::s_wcName[] = L"CubuiWindow";
+	const wchar_t WindowBase::s_default_title[] = L"";
+	const int WindowBase::s_defaultSizes[] = { CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT };
+	const WNDCLASSW WindowBase::s_wc = {
 			CS_HREDRAW | CS_VREDRAW,
 			wndProc,
 			0,
@@ -25,7 +25,7 @@ namespace cubui{
 			s_wcName
 	};
 
-	Result Window::init(const wchar_t* title, const int sizes[4])
+	CUResult WindowBase::init(const wchar_t* title, const int sizes[4])
 	{
 		if (title == nullptr) {
 			title = s_default_title;
@@ -48,15 +48,14 @@ namespace cubui{
 		return !m_hwnd;
 	}
 
-	void Window::uninit()
+	void WindowBase::uninit()
 	{
 		if (m_hwnd) {
 			DestroyWindow(m_hwnd);
-			m_hwnd = NULL;
 		}
 	}
 
-	void Window::show(bool x)
+	void WindowBase::show(bool x)
 	{
 		if (m_hwnd) {
 			if (x) {
@@ -68,18 +67,27 @@ namespace cubui{
 		}
 	}
 
-	Result Window::when(Event* e){
-		if (e->id == eventid::DESTROY) {
-			delete this;
-		}
-		else if (e->id == eventid::QUIT) {
+	CUResult WindowBase::when(CUEvent* e){
+		if (e->id == eventid::QUIT) {
 			uninit();
 		}
 		return 0;
 	}
 
+	Rect32 WindowBase::getClientSize()
+	{
+		RECT rect;
+		GetClientRect(m_hwnd,&rect);
+
+		return Rect32{
+			.width = (uint32_t)(rect.right - rect.left),
+			.height = (uint32_t)(rect.bottom - rect.top)
+		};
+	}
+
 	namespace {
-		void cvtMsgToEvent(Event& e) {
+		void cvtMsgToEvent(CUEvent& e) {
+			//TODO
 			auto& re = e.rawEvent;
 			if (re.message == WM_DESTROY) {
 				e.id = eventid::DESTROY;
@@ -93,9 +101,9 @@ namespace cubui{
 		}
 	}
 
-	Result Window::handleMsg(UINT msg, WPARAM wParam, LPARAM lParam)
+	CUResult WindowBase::handleMsg(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
-		Event e;
+		CUEvent e;
 		e.rawEvent.message = msg;
 		e.rawEvent.wParam = wParam;
 		e.rawEvent.lParam = lParam;
@@ -104,7 +112,7 @@ namespace cubui{
 		return when(&e);
 	}
 
-	Result Window::s_init()
+	CUResult WindowBase::s_init()
 	{
 		auto& wc = s_wc;
 		if (RegisterClassW(&wc)) {
@@ -114,9 +122,9 @@ namespace cubui{
 	}
 
 
-	LRESULT Window::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	LRESULT WindowBase::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
-		Window* self = (Window*)GetWindowLongPtrW(hwnd, GWLP_USERDATA);
+		WindowBase* self = (WindowBase*)GetWindowLongPtrW(hwnd, GWLP_USERDATA);
 		if (self) {
 			auto ret = self->handleMsg(msg, wParam, lParam);
 			if (msg == WM_DESTROY) {
@@ -129,7 +137,7 @@ namespace cubui{
 			}
 		}
 		else if (msg == WM_CREATE) {
-			self = (Window*)((CREATESTRUCT*)lParam)->lpCreateParams;
+			self = (WindowBase*)((CREATESTRUCT*)lParam)->lpCreateParams;
 			SetWindowLongPtrW(hwnd, GWLP_USERDATA, (LONG_PTR)self);
 			self->m_hwnd = hwnd;
 			++s_wnd_count;

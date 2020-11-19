@@ -45,7 +45,7 @@ namespace cubui{
             return data.get() + size;
         }
 
-        T& operator[] (size_t i) { return data[i]; }
+        T& operator[] (size_t i) { return data.get()[i]; }
 
         ArrayRef<T> get() {
             return ArrayRef<T>(data.get(), size);
@@ -53,6 +53,13 @@ namespace cubui{
 
         ArrayRef<T> slice(size_t a, size_t b) {
             return ArrayRef<T>(data.get() + a, b - a);
+        }
+
+        size_t copy(const ArrayRef<T>& src) {
+            auto cpy_size = std::min(size, src.size);
+            if (cpy_size)
+                memcpy(data.get(), src.data, sizeof(T) * cpy_size);
+            return cpy_size;
         }
     };
 }

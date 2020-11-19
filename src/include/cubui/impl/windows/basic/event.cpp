@@ -1,12 +1,12 @@
 #include <cubui/ext/windowsinc.h>
 #include <cubui/basic/event.h>
-#include <cubui/basic/window.h>
+#include <cubui/basic/windowbase.h>
 
 
 namespace cubui {
 	int EventLoop::run()
 	{
-		Event e;
+		CUEvent e;
 		auto& msg = e.rawEvent;
 		while (!m_quit) {
 			if (m_enableIdle) {
@@ -28,14 +28,14 @@ namespace cubui {
 		return 0;
 	}
 
-	void EventLoop::dispatch(Event* e)
+	void EventLoop::dispatch(CUEvent* e)
 	{
 		DispatchMessageW(&(e->rawEvent));
 	}
 
-	void EventLoop::when(Event* e)
+	void EventLoop::when(CUEvent* e)
 	{
-		if (Window::getWndNum() == 0) {
+		if (WindowBase::getWndNum() == 0) {
 			quit();
 			return;
 		}

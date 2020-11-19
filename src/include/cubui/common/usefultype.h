@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 namespace cubui{
-    using Result = int;
+    using CUResult = int;
     
     struct CUNull{};
 }

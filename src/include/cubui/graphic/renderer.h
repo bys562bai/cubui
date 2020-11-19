@@ -2,7 +2,7 @@
 #include <cubui/common/predef.h>
 
 #ifdef CUBUI_USING_VULKAN
-#include <cubui/impl/vulkan/vulkanheader.h>
+#include <cubui/ext/vulkaninc.h>
 #endif
 
 namespace cubui

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(cubui)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 if(WIN32)
     set(BUILDING_PLATFORM  WINDOWS)
@@ -35,6 +35,7 @@ ${Boost_INCLUDE_DIRS}
 set(CUBUI_DEPENDENT_LIB
 Boost::boost 
 Folly::folly
+fmt::fmt
 spdlog::spdlog
 Vulkan::Vulkan
 glfw

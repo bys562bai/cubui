@@ -1,7 +1,7 @@
 #pragma once
 #include <cubui/ext/windowsinc.h>
 #include <cubui/config/confignode.h>
-#include <cubui/basic/window.h>
+#include <cubui/basic/windowbase.h>
 
 namespace cubui{
     struct WindowsPlatformConfig : ConfigNode{
@@ -10,8 +10,8 @@ namespace cubui{
             return name;
         }
 
-        virtual Result init() {
-            return Window::s_init();
+        virtual CUResult init() {
+            return WindowBase::s_init();
         }
     };
 }

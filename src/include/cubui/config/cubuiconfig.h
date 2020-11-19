@@ -6,6 +6,7 @@
 
 #include "loggingconfig.h"
 #include "windowconfig.h"
+#include "renderconfig.h"
 
 #include <cubui/common/usefultype.h>
 #include <cubui/common/global.h>
@@ -36,9 +37,9 @@ namespace cubui
 						CP_UTF8,
 						0,
 						argw,
-						argwl,
+						(int) argwl,
 						arg,
-						argl,
+						(int) argl,
 						NULL,
 						NULL
 					);
@@ -62,7 +63,8 @@ namespace cubui
 #endif
 			ConfigNode* arr[] = {
 				&logConfig,
-				&windowConfig
+				&windowConfig,
+				&renderConfig
 			};
 			//init loop
 			for (int i = 0; i < sizeof(arr) / sizeof(ConfigNode*); i++) {
@@ -95,6 +97,7 @@ namespace cubui
 
 		LoggingConfig logConfig;
 		WindowConfig windowConfig;
+		RenderConfig renderConfig;
 
 	};
 

@@ -23,7 +23,7 @@ int main(){
     arrRef.copy(ArrayRef<int>(arr + 2, size - 2));
     cout << arrRef << endl;
 
-    arrRef.set(0);
+    arrRef.fill(0);
     cout << arrRef << endl;
 
     arrRef.reset();

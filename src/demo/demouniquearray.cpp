@@ -10,9 +10,5 @@ using namespace cubui;
 int main(){
     using std::cout, std::endl;
 
-    for (auto& v : arr) {
-        cout << v;
-    }
-
     return 0;
 }

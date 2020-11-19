@@ -39,10 +39,15 @@ namespace cubui{
             return size;
         }
 
-        void set(int x) {
+        //assign by bytes
+        void fillb(int x) {
             auto bytesize = size * sizeof(T);
-            if(bytesize)
+            if (bytesize)
                 memset(data, x, bytesize);
+        }
+
+        void fill(T x) {
+            std::fill(begin(), end(), x);
         }
 
         //return copy number of elements

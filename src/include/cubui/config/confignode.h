@@ -8,14 +8,16 @@ namespace cubui{
             return name; 
         }
 
-        virtual bool whenFail(Result re){
+        virtual bool whenFail(CUResult re){
             return 1;   //return 1 means cannot solve the problem
         }
 
         virtual bool inited() {return m_inited;}
 
         //return 0 means success, otherwise fail.
-        virtual Result init() {return 0;}   
+        virtual CUResult init() {return 0;}   
+        virtual void uninit() {}
+        
         virtual ~ConfigNode(){}
 
         void setInited(bool x = true) { m_inited = x; }

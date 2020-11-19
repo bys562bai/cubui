@@ -9,13 +9,13 @@ namespace cubui{
             return name;
         }
 
-        virtual Result init(){
+        virtual CUResult init(){
             using namespace std;
             using namespace spdlog;
             using namespace global_val;
             
             g_logger = std::make_shared<spdlog::logger>("cubui");
-            auto rotatingSink = make_shared<sinks::rotating_file_sink_mt> ("cubuiLog/log.txt", 1024*1024, 1000, false);
+            auto rotatingSink = make_shared<sinks::rotating_file_sink_mt> ("cubuiLog/log.txt", 1024*1024, 10, false);
             g_logger->sinks().push_back(rotatingSink);
 
             #ifdef CUBUI_USING_MSVC
